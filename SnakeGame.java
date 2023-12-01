@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class SnakeGame extends JPanel implements ActionListener {
@@ -23,6 +22,7 @@ public class SnakeGame extends JPanel implements ActionListener {
     private boolean running = false;
     private Timer timer;
     private final Random random;
+    private JButton restartButton;
 
     public SnakeGame() {
         random = new Random();
@@ -99,6 +99,7 @@ public class SnakeGame extends JPanel implements ActionListener {
         }
         if (!running) {
             timer.stop();
+            addRestartButton();
         }
     }
 
@@ -114,8 +115,18 @@ public class SnakeGame extends JPanel implements ActionListener {
         Font scoreFont = new Font("Helvetica", Font.PLAIN, 20);
         g.setFont(scoreFont);
         g.drawString(scoreMessage, SCREEN_WIDTH / 2 - 40, SCREEN_HEIGHT / 2 + 20);
-        
-        
+    }
+
+    public void addRestartButton() {
+        restartButton = new JButton("Restart");
+        restartButton.setBounds(SCREEN_WIDTH / 2 - 60, SCREEN_HEIGHT / 2 + 50, 120, 30);
+        restartButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                remove(restartButton);
+                startGame();
+            }
+        });
+        add(restartButton);
     }
 
     @Override
@@ -187,6 +198,7 @@ public class SnakeGame extends JPanel implements ActionListener {
             }
         }
     }
+
     public static void main(String[] args) {
         // Create a JFrame and add the SnakeGame panel to it.
         JFrame frame = new JFrame("Snake Game");
