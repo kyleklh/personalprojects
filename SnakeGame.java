@@ -169,6 +169,7 @@ public class SnakeGame extends JPanel implements ActionListener {
         } else {
             gameOver(g);
         }
+        
     }
 
     public class MyKeyAdapter extends KeyAdapter {
