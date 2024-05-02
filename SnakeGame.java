@@ -85,7 +85,7 @@ public class SnakeGame extends JPanel implements ActionListener {
         if (x[0] < 0) {
             running = false;
         }
-        // Check if the head touches the right border
+        // Check if head touches right border
         if (x[0] >= SCREEN_WIDTH) {
             running = false;
         }
@@ -123,20 +123,30 @@ public class SnakeGame extends JPanel implements ActionListener {
         restartButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 remove(restartButton);
+                bodyParts = 6;
+                applesEaten = 0;
+                direction = 'R';
+                running = true;
+                for (int i = 0; i < bodyParts; i++) {
+                    x[i] = 0;
+                    y[i] = 0;
+                }
                 startGame();
+                repaint();
             }
         });
-        add(restartButton);
-    }
 
-    @Override
+
+        add(restartButton);
+    }    @Override
     public void actionPerformed(ActionEvent e) {
         if (running) {
             move();
             checkApple();
             checkCollision();
+            repaint();
+        
         }
-        repaint();
     }
 
     @Override
@@ -197,8 +207,12 @@ public class SnakeGame extends JPanel implements ActionListener {
                     }
                     break;
             }
+
+            
         }
     }
+
+    
 
     public static void main(String[] args) {
         // Create a JFrame and add the SnakeGame panel to it.
@@ -206,7 +220,7 @@ public class SnakeGame extends JPanel implements ActionListener {
         SnakeGame game = new SnakeGame();
         frame.add(game);
 
-        // Configure the frame.
+        // Configure frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
